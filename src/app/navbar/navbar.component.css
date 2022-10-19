@@ -1,0 +1,29 @@
+  .mat-menu-item:hover{
+    color: #aa3c9f;
+  }
+  .mat-menu-item:hover .mat-icon{
+    color: #aa3c9f;
+  }
+
+  .navbar-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  
+  h1.example-app-name {
+    margin-left: 8px;
+  }
+  
+  .sidenav-container {
+    flex: 1;
+    
+  }
+  
+  table {
+    width: 100%;
+  }

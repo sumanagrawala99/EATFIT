@@ -1,0 +1,13 @@
+<div class='container-fluid mt-5'>
+    <div class="card-columns">
+      <div class="card m-2" *ngFor="let cat of categories">
+        <div class="text-center">
+          <img class="card-img-top" style="max-width:300px;" [src]="cat.strCategoryThumb"  role="button" (click)="onCategoryClick(cat.strCategory)">
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"  role="button" (click)="onCategoryClick(cat.strCategory)">{{cat.strCategory}}</h5>
+          <p class="card-text">{{cat.strCategoryDescription}}</p>
+        </div>
+      </div>
+    </div>
+  </div>

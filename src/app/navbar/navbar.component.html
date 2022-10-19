@@ -1,0 +1,18 @@
+<div class="navbar-container">
+  <app-toolbar (SideNavToggle)="snav.toggle()"></app-toolbar>
+
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+      <app-sidenav (closeSideNav)="snav.close()"></app-sidenav>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <app-navtabs></app-navtabs>
+      <main>
+        <router-outlet></router-outlet>
+      </main>
+      
+    </mat-sidenav-content>
+    
+  </mat-sidenav-container>
+</div>
