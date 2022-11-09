@@ -1,22 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ChallengesComponent } from './challenges/challenges.component';
-import { CommunityComponent } from './community/community.component';
-import { FitnessComponent } from './fitness/fitness.component';
+import { LoginComponent } from './auth/login/login.component';
 import { FoodsComponent } from './foods/foods.component';
-import { MyFatSecretComponent } from './my-fat-secret/my-fat-secret.component';
-import { RecipesComponent } from './recipes/recipes.component';
-import { SignupComponent } from './signup/signup.component';
+import { AuthGuard } from './_helper/auth.guard';
 
-
+const userAccountModule = () => import('./auth/user-account.module').then(x => x.UserAccountModule);
+const myFatSecretModule = () => import('./my-fat-secret/my-fat-secret.module').then(x => x.MyFatSecretModule);
+const recipeModule = () => import('./recipes/recipe.module').then(x => x.RecipeModule);
 const appRoutes : Routes =[
-  { path: 'myfatsecret', component:MyFatSecretComponent },
+  
+  { path: '', component: LoginComponent, canActivate: [AuthGuard] },
+  { path: 'recipes', loadChildren: recipeModule },
   { path: 'foods' ,component:FoodsComponent},
-  { path: 'recipes' , component: RecipesComponent},
-  { path: 'challenges' , component: ChallengesComponent},
-  { path: 'community', component:CommunityComponent},
-  { path: 'fitness' , component:FitnessComponent},
-  { path: 'signup' , component:SignupComponent}
+  { path: 'account', loadChildren: userAccountModule },
+  { path: 'myEatFit', loadChildren: myFatSecretModule }
+  
 ];
 
 @NgModule({

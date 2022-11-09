@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NavItem } from '../nav-item';
+import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/_services/auth.service';
+import { NavItem } from '../../_modals/nav-item';
 
 @Component({
   selector: 'app-navtabs',
@@ -8,42 +10,38 @@ import { NavItem } from '../nav-item';
 })
 export class NavtabsComponent implements OnInit {
 
-  constructor() { }
+  isAuthenticated = false;
+  private userSub: Subscription;
+  
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.userSub= this.authService.userSubject.subscribe(data=>{
+      this.isAuthenticated = !!data;
+    });
   }
 
   menuItem: NavItem [] = [
     {
-      displayName: 'MyFatSecret',
+      displayName: 'My Diary',
       iconName: 'description',
-      route: '/myfatsecret',
+      route: '/myEatFit',
     },        
+    {
+      displayName: 'Recipes',
+      iconName: 'local_dining',          
+      route: '/recipes',
+    },
     {
       displayName: 'Foods',
       iconName: 'restaurant',
       route: 'foods',
     },
     {
-      displayName: 'Recipes',
-      iconName: 'local_dining',          
-      route: 'recipes',
+      displayName: 'Meal Planner',
+      iconName: 'restaurant',
+      route: '/mealPlanner',
     },
-    {
-      displayName: 'Challenges',
-      iconName: 'event_note',
-      route: 'challenges',
-    },
-    {
-      displayName: 'Fitness',
-      iconName: 'fitness_center',
-      route: 'fitness',
-    },
-    {
-      displayName: 'Community',
-      iconName: 'group',
-      route: 'community',
-    }
   ];
 
 

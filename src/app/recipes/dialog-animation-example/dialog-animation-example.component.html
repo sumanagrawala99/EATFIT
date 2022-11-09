@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>{{recipeDetails.recipeName}}</h1>
+<div mat-dialog-content>
+  <img mat-card-sm-image src="{{recipeDetails.recipeImage}}">
+  {{recipeDetails.recipeDescription}}
+  <h3><u>Details</u></h3>
+  serving:{{recipeDetails.numberOfServings}}
+  Preparation Time: {{recipeDetails.preparationTimeMin}}
+  Cook Time: {{recipeDetails.cookingTimeMin}}
+  <h3><u>Ingredients</u></h3>
+  <ul *ngFor="let ingredient of recipeDetails.ingredientList">
+    <li>
+      {{ingredient}}
+    </li>
+  </ul>
+  <h3><u>Directions</u></h3>
+  <ul *ngFor="let direction of recipeDetails.directionList">
+    <li>
+     {{direction}}
+    </li>
+  </ul>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>close</button>
+  <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>
+</div>

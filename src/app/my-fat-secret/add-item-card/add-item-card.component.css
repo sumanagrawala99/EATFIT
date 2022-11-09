@@ -1,0 +1,17 @@
+.example-header-image {
+    background-image: url('/assets/images.jpg');
+    background-size: contain;
+    border-color: blue;
+   
+}
+
+.example-card {
+    margin-top: 5px;
+    margin-bottom: 5px; 
+    display: flex;
+}
+
+  
+  
+ 
+  

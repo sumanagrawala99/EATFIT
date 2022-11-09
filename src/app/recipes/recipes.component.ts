@@ -1,34 +1,106 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { Receipe } from '../_modals/receipe.model';
+import { RecipeService } from '../_services/recipe.service';
+import { DialogAnimationExampleComponent } from './dialog-animation-example/dialog-animation-example.component';
 
-
-const baseUrl = "https://www.themealdb.com/api/json/v1/1/"
-
-//const baseUrl ="GET&https://platform.fatsecret.com/rest/server.api&method=recipes.get_favorites&oauth_consumer_key=98d0fff50f634835af88bff4eb574f12&oauth_nonce=1234&oauth_signature=sAyYTJiIxOGkvFpBcH8L%2BlFQRCQ%3D&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1245126631&oauth_version=1.0"
 
 @Component({
   selector: 'app-recipes',
   templateUrl: './recipes.component.html',
   styleUrls: ['./recipes.component.css']
 })
-
 export class RecipesComponent implements OnInit {
-  
+
+  gridColumns = 3;
+
+  toggleGridColumns() {
+    this.gridColumns = this.gridColumns === 3 ? 4 : 3;
+  }
+
   ngOnInit(): void {
+    
   }
 
-  categories: any[]
+  status='';
+   recipes: Receipe[];
+   searchName: string ='';
+   recipetype:string='';
+   recipesTypes:any
+  textHead='Recently Popular Recipes';
 
-  constructor(private http: HttpClient, private router: Router){
-  this.http.get(baseUrl + "categories.php").subscribe((res: any)=>{
-      this.categories = res.categories
-      this.categories.sort((cat1, cat2)=>cat1.strCategory.charCodeAt(0)-cat2.strCategory.charCodeAt(0))
-    })
+  constructor( public dialog: MatDialog,private recipeService:RecipeService){
+          this.getRecipes(this.searchName,this.recipetype);
+          this.getRecipeTypes();
+   
+    }
+
+   getRecipes(searchText:string,recipetype:string){
+      this.recipeService.getRecipes(searchText,recipetype).subscribe((data :Receipe[]) =>{
+          this.recipes = data;
+          console.log(this.recipes);
+      } )
+        
   }
 
-  onCategoryClick(strCategory: string){
-    this.router.navigateByUrl('/categories/' + strCategory)
+  getRecipeTypes(){
+    this.recipeService.getRecipesTypes().subscribe((data) =>{
+      console.log(data);
+      this.recipesTypes=data;
+  } )
+  }
+  form = new FormGroup({  
+    searchText : new FormControl()
+  }); 
+
+  searchForm()  
+  {  
+    this.status='';
+      this.searchName = this.SearchText?.value;
+      this.textHead=`${this.searchName} Receipes`
+      if(this.searchName!=""){
+        this.getRecipes(this.searchName,'');
+      }
+    
+  }
+
+  getRecipesByType(recipeType:string){
+    if(recipeType!== undefined){
+      this.status=recipeType;
+      console.log(recipeType);
+      this.getRecipes('',recipeType);
+      this.recipetype=recipeType;
+      this.textHead=`${recipeType} Recipes`;
+    }else{
+      this.getRecipes('','');
+      this.textHead=`Recently Popular Recipes`;
+    }
+    
+  }
+
+  get SearchText()  
+  {  
+    return this.form.get('searchText');  
+  }  
+
+
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string,receipeId:string) {
+    this.recipeService.getRecipeDetails(receipeId).subscribe((data) =>{
+       let value=  JSON.stringify(data);
+         let response= JSON.parse(value);
+          if(response!=undefined){ 
+            this.dialog.open(DialogAnimationExampleComponent, {
+                    width: '50vw',
+                     maxWidth: '50vw',
+                     enterAnimationDuration,
+                     exitAnimationDuration,
+                     data: {
+                      receipe: response
+                    }
+                 });
+          }
+       } )
   }
 
 }

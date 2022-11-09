@@ -5,4 +5,9 @@
   .mat-tab-link{
     flex: 1 0.5 auto;
   }
+
+  .active { 
+    background-color: aliceblue; 
+    color: blue;
+  }
   

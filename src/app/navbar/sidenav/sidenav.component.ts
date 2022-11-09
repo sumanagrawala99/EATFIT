@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { NavItem } from '../nav-item';
+import { NavItem } from '../../_modals/nav-item';
 
 @Component({
   selector: 'app-sidenav',

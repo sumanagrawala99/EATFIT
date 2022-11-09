@@ -2,8 +2,8 @@
 <div class="navtabs-container">
     <nav mat-tab-nav-bar fxFlex fxLayout="row" mat-align-tabs="center">
         <span *ngFor="let item of menuItem">
-            <div routerLinkActive="active">
-                <a mat-tab-link routerLink="{{item.route}}">
+            <div >
+                <a mat-tab-link routerLink="{{item.route}}"  routerLinkActive="active" *ngIf="isAuthenticated">
                     <mat-icon>{{item.iconName}}</mat-icon>
                     {{item.displayName}}
                 </a>

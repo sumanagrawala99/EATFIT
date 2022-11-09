@@ -1,5 +1,5 @@
 .mat-toolbar.mat-primary {
-    background: #2fa644;
+    background: blue;
     color: #fff;
 }
   .ylb-app-content{
@@ -18,7 +18,7 @@
   }
 
   .circle {
-    border: 2px solid #2fa644;
+    border: 2px solid blue;
     background-color: white;
     border-radius:50%;
 }
