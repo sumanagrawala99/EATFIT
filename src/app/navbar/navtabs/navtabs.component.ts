@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { User } from 'src/app/_modals/user';
 import { AuthService } from 'src/app/_services/auth.service';
+import { NavbarService } from 'src/app/_services/navbar.service';
 import { NavItem } from '../../_modals/nav-item';
 
 @Component({
@@ -10,15 +12,14 @@ import { NavItem } from '../../_modals/nav-item';
 })
 export class NavtabsComponent implements OnInit {
 
-  isAuthenticated = false;
-  private userSub: Subscription;
+  user: User;
   
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, public nav: NavbarService) {
+    this.authService.user.subscribe(x => this.user = x);
+   }
 
   ngOnInit(): void {
-    this.userSub= this.authService.userSubject.subscribe(data=>{
-      this.isAuthenticated = !!data;
-    });
+   
   }
 
   menuItem: NavItem [] = [
@@ -38,9 +39,9 @@ export class NavtabsComponent implements OnInit {
       route: 'foods',
     },
     {
-      displayName: 'Meal Planner',
-      iconName: 'restaurant',
-      route: '/mealPlanner',
+      displayName: 'Exercise',
+      iconName: 'directions_run',
+      route: '/exercise',
     },
   ];
 

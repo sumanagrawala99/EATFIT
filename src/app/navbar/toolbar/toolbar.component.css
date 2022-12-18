@@ -12,14 +12,37 @@
   }
   .logout{
     display: inline-block;
-    width: 100%;
     text-align: right;
     vertical-align: bottom;
+    
   }
-
+ .text{
+  text-align: right;
+  width: 100%;
+  display: inline-block;
+  vertical-align: bottom;
+  font-size: small;
+ }
+  
   .circle {
     border: 2px solid blue;
     background-color: white;
     border-radius:50%;
+}
+
+
+a:link {
+  color: white;
+  background-color: transparent;
+  text-decoration: none;
+}
+a:visited {
+  color: deepskyblue;
+  background-color: transparent;
+  text-decoration: none;
+}
+a:active {
+  color: white;
+  background-color: transparent;
 }
   

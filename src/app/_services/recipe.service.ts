@@ -24,18 +24,18 @@ export class RecipeService {
     let params = new HttpParams();
     params = params.append('receipeName', searchText);
     params = params.append('recipType', recipetype);
-    return this.http.get<Receipe[]>(`${baseUrl}/recipeSearch`, {params: params});
+    return this.http.get<Receipe[]>(`${baseUrl}/search/receipes`, {params: params});
   }
 
   getRecipesTypes(){
-    return this.http.get(`${baseUrl}/getRecipeType`);
+    return this.http.get(`${baseUrl}/recipeTypes`);
   }
 
   getRecipeDetails(receipeId:string){
   
     let params = new HttpParams();
     params = params.append('receipeId', receipeId);
-    return this.http.get(`${baseUrl}/recipeDetails`,  {params: params});
+    return this.http.get(`${baseUrl}/receipe`,  {params: params});
   
   }
 

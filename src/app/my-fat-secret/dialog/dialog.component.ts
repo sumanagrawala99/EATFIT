@@ -84,8 +84,10 @@ export class DialogComponent implements OnInit {
     let selectedVal = this.selection.selected;
     let data = selectedVal.map(t=>t.foodId);
      this.foodService.setFoodDetails(data).subscribe((response: any) => { 
-        this.router.navigateByUrl("myEatFit") ;
-       });
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.onSameUrlNavigation = 'reload';
+      this.router.navigate(['/myEatFit']);
+    });
 
   }
 }

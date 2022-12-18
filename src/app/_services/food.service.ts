@@ -21,7 +21,7 @@ export class FoodService {
   {  
       let params = new HttpParams();
       params = params.append('foodName', searchText);
-      this.responseobj= this.http.get<food[]>(`${this.baseUrl}/foodSearch`,  {params: params});
+      this.responseobj= this.http.get<food[]>(`${this.baseUrl}/search/foods`,  {params: params});
       return this.responseobj;
   }
 
@@ -29,7 +29,15 @@ export class FoodService {
     this.date = date;
     let params = new HttpParams();
     params = params.append('date', date);
-     this.responseobj= this.http.get(`${this.baseUrl}/getFoodType`, {params: params});
+     this.responseobj= this.http.get(`${this.baseUrl}/foodItemTypes`, {params: params});
+    return this.responseobj;
+  }
+
+  getMacroNutrients(date:string){
+    this.date = date;
+    let params = new HttpParams();
+    params = params.append('date', date);
+     this.responseobj= this.http.get(`${this.baseUrl}/macroNutrients`, {params: params});
     return this.responseobj;
   }
   
@@ -42,7 +50,7 @@ export class FoodService {
     body.append('foodDetails', JSON.stringify(reqdata));
     body.append("date",this.date);
    console.log(reqdata);
-   return this.http.post(`${this.baseUrl}/saveFoodDetails`,body);
+   return this.http.post(`${this.baseUrl}/save/FoodDetails`,body);
     
   }
 
@@ -51,7 +59,7 @@ export class FoodService {
   }
 
   deleteFoodItem(foodId:string){
-   return this.http.delete(`${this.baseUrl}/deleteFoodDetails/${foodId}`);   
+   return this.http.delete(`${this.baseUrl}/foodDetails/${foodId}`);   
   }
 
   

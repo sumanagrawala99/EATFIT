@@ -1,3 +1,5 @@
+import { Activity } from "./activity.modal";
+
 export class User {
     id: string;
     username: string;
@@ -9,4 +11,7 @@ export class User {
     weight:string;
     gender:string;
     token: string;
+    activityType:Activity;
+    dateOfBirth:string;
 }
+

@@ -1,7 +1,7 @@
 export interface food{
     foodId:number;
-    foodName:string;
-    foodType:string;
+    food_name:string;
+    food_type:string;
     brandName:string;
     foodUrl:string;
     foodDescription:string;

@@ -4,6 +4,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import * as moment from 'moment';
 import { food } from '../_modals/food.model';
 import { FoodService } from '../_services/food.service';
+import { NavbarService } from '../_services/navbar.service';
 
 
 @Component({
@@ -19,9 +20,14 @@ export class MyFatSecretComponent implements OnInit {
    today = new Date();
    date = new FormControl(new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate()));
    dateToDB = moment(this.date.value).format("YYYY-MM-DD");
+   macroNutrions:any;
+   carbsPerc:number;
+   fatPerc:number;
+   proteinPerc:number;
+   spinnerPercentage:number;
    
   
-  constructor(private service:FoodService) { 
+  constructor(private service:FoodService,private nav:NavbarService) { 
   }
 
   events: string[] = [];
@@ -31,10 +37,24 @@ export class MyFatSecretComponent implements OnInit {
     var dateToDB = moment(event.value).format("YYYY-MM-DD");
     this.dateToDB=dateToDB;
     this.getFoodItemType(dateToDB);
+    this.getMacroNutrients(dateToDB);
   }
 
   ngOnInit(): void {
+    this.nav.show();
     this.getFoodItemType(this.dateToDB);
+    this.getMacroNutrients(this.dateToDB);
+  }
+
+  getMacroNutrients(date:any){
+    this.service.getMacroNutrients(date).subscribe((response: any) => { 
+      //console.log(response);
+      this.macroNutrions=response;
+      this.carbsPerc=(response.sumOfCarbs * 100)/response.carbsReq;
+      this.fatPerc=(response.sumOfFat * 100)/response.fatReq;
+      this.proteinPerc=(response.sumOfProtein * 100)/response.proteinReq;
+      this.spinnerPercentage=Math.round((response.dailyKcalConsumed * 100)/response.dailyKcalGoal);
+    });
   }
 
   doSomething(val: string){
@@ -45,13 +65,16 @@ export class MyFatSecretComponent implements OnInit {
   getFoodItemType(date:any){
   this.service.getFoodItemType(date).subscribe((response: any) => { 
     this.mealList =response
-    console.log(this.mealList);
+   // console.log(this.mealList);
      });
   }
 
   deleteItem(item:string){
     console.log(item);
-   this.service.deleteFoodItem(item).subscribe(()=>this.getFoodItemType(this.dateToDB));
+   this.service.deleteFoodItem(item).subscribe(()=>{
+    this.getFoodItemType(this.dateToDB);
+    this.getMacroNutrients(this.dateToDB);
+  });
   }
 
   

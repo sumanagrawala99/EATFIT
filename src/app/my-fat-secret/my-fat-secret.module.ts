@@ -17,6 +17,8 @@ import { MyFatSecretRoutingModule } from "./my-fat-secret-routing.module";
 import { MyFatSecretComponent } from "./my-fat-secret.component";
 import {MatCardModule} from '@angular/material/card';
 import { MatButtonModule } from "@angular/material/button";
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   imports: [
@@ -33,7 +35,10 @@ import { MatButtonModule } from "@angular/material/button";
       ReactiveFormsModule,
       MatCardModule,
       MatInputModule,
-      MatButtonModule
+      MatButtonModule,
+      MatProgressBarModule,
+    MatProgressSpinnerModule,
+    
   ],
   declarations: [
      MyFatSecretComponent,

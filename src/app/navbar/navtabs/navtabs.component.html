@@ -1,10 +1,10 @@
 
 <div class="navtabs-container">
-    <nav mat-tab-nav-bar fxFlex fxLayout="row" mat-align-tabs="center">
+    <nav mat-tab-nav-bar fxFlex fxLayout="row" mat-align-tabs="center" *ngIf="nav.visible">
         <span *ngFor="let item of menuItem">
-            <div >
-                <a mat-tab-link routerLink="{{item.route}}"  routerLinkActive="active" *ngIf="isAuthenticated">
-                    <mat-icon>{{item.iconName}}</mat-icon>
+            <div class="text-uppercase fw-bold text-primary">
+                <a mat-tab-link routerLink="{{item.route}}"  routerLinkActive="active" *ngIf="user">
+                    <mat-icon color="warn">{{item.iconName}}</mat-icon>
                     {{item.displayName}}
                 </a>
             </div>

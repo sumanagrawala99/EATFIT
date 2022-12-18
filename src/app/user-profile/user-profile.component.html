@@ -1,0 +1,105 @@
+<div class="col d-flex justify-content-center mt-4">
+
+  <div class="card ">
+    <h2 class="card-header text-center fw-bold">User Profile</h2>
+    <div class="card-body">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="user != undefined">
+       
+        <div class="row">
+          <div class="col-md-6">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" formControlName="username" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.username.errors }" readonly/>
+            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+              <div *ngIf="f.username.errors.required">Username is required</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" formControlName="password" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.password.errors }"  readonly/>
+            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+              <div *ngIf="f.password.errors.required">Password is required</div>
+              <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" formControlName="firstName" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"/>
+            <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+              <div *ngIf="f.firstName.errors.required">First Name is required</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" formControlName="lastName" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+            <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+              <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-6 mb-4 d-flex align-items-center">
+            <div class="form-outline w-100">
+              <label for="birthdayDate" class="form-label">Birthday</label>
+              <input class="form-control" placeholder="yyyy-mm-dd" formControlName="birthdate" ngbDatepicker
+                #d="ngbDatepicker" (click)="d.toggle()">
+            </div>
+          </div>
+          <div class="col-md-6 mb-4">
+            <h4 class="mb-2 pb-1">Gender: </h4>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" formControlName="gender" id="femaleGender" value="Female"
+                checked />
+              <label class="form-check-label" for="femaleGender">Female</label>
+            </div>
+
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" formControlName="gender" id="maleGender" value="Male" />
+              <label class="form-check-label" for="maleGender">Male</label>
+            </div>
+
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" formControlName="gender" id="otherGender" value="Other" />
+              <label class="form-check-label" for="otherGender">Other</label>
+            </div>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3">
+            <label for="height">Height (in cm)</label>
+            <input type="text" formControlName="height" class="form-control" />
+          </div>
+          <div class="col-sm-3">
+            <label for="weight">Weight (in kg)</label>
+            <input type="text" formControlName="weight" class="form-control" />
+          </div>
+          <div class="col-sm-6">
+            <mat-form-field appearance="fill">
+              <mat-label>Activity Types</mat-label>
+              <mat-select formControlName="activityId">
+                <mat-option>None</mat-option>
+                <mat-option *ngFor="let activityType of activityTypes" [value]="activityType.activityId">
+                  {{activityType.activityName}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <button [disabled]="loading" class="btn btn-primary">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Update
+          </button>
+          <a routerLink="../myEatFit" class="btn btn-link">Back to home</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

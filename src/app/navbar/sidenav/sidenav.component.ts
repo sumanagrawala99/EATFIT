@@ -20,16 +20,7 @@ export class SidenavComponent implements OnInit {
   }
 
   menuItem: NavItem [] = [
-    {
-      displayName: 'SignUp',
-      iconName: 'account_circle',
-      route: '/signup',
-    },        
-    {
-      displayName: 'login',
-      iconName: 'input',
-      route: 'login',
-    },
+   
     {
       displayName: 'Notifications',
       iconName: 'notifications',          

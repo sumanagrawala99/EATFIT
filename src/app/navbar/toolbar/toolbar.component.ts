@@ -1,21 +1,37 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AfterContentChecked, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { User } from 'src/app/_modals/user';
+import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.css']
 })
-export class ToolbarComponent implements OnInit {
+export class ToolbarComponent implements OnInit,AfterContentChecked {
 
-  constructor() { }
+  user: User;
+  username: string;
+  constructor(private authservice: AuthService) {
+    this.authservice.user.subscribe(x => this.user = x);
 
-  ngOnInit(): void {
+  }
+  ngAfterContentChecked(): void {
+    this.username = JSON.parse(this.authservice.getUserName());
   }
 
-  @Output() SideNavToggle = new EventEmitter();  
+  ngOnInit(): void {
+   
+  }
+
+  @Output() SideNavToggle = new EventEmitter();
 
   openSidenav() {
-   this.SideNavToggle.emit();
-}
+    this.SideNavToggle.emit();
+  }
+  logout() {
+    this.authservice.logout();
+  }
+
+
 
 }

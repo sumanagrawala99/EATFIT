@@ -23,7 +23,7 @@ export class RecipesComponent implements OnInit {
     
   }
 
-  status='';
+  recipeType='';
    recipes: Receipe[];
    searchName: string ='';
    recipetype:string='';
@@ -46,7 +46,7 @@ export class RecipesComponent implements OnInit {
 
   getRecipeTypes(){
     this.recipeService.getRecipesTypes().subscribe((data) =>{
-      console.log(data);
+     // console.log(data);
       this.recipesTypes=data;
   } )
   }
@@ -56,24 +56,25 @@ export class RecipesComponent implements OnInit {
 
   searchForm()  
   {  
-    this.status='';
+   // this.recipeType='';
       this.searchName = this.SearchText?.value;
       this.textHead=`${this.searchName} Receipes`
       if(this.searchName!=""){
-        this.getRecipes(this.searchName,'');
+        this.getRecipes(this.searchName,this.recipeType);
       }
     
   }
 
   getRecipesByType(recipeType:string){
     if(recipeType!== undefined){
-      this.status=recipeType;
-      console.log(recipeType);
-      this.getRecipes('',recipeType);
+      this.recipeType=recipeType;
+      //console.log(recipeType);
+      this.getRecipes(this.searchName,recipeType);
       this.recipetype=recipeType;
       this.textHead=`${recipeType} Recipes`;
     }else{
-      this.getRecipes('','');
+      this.recipeType="";
+      this.getRecipes(this.searchName,this.recipeType);
       this.textHead=`Recently Popular Recipes`;
     }
     

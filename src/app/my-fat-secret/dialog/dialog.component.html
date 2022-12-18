@@ -1,12 +1,12 @@
 
 	<div mat-dialog-title>
-	  search for food
+	  Search for food
 	</div>
 
 	<mat-dialog-content>
 		<form [formGroup]="form" #searchInfo>
 			<input type="text" formControlName="searchText" placeholder="Enter Search food">
-			<button type="button" (click)="searchForm()">Search</button>
+			<button type="button" (click)="searchForm()" class="m-2">Search</button>
 		  </form>
 		  <div *ngIf="dataSource.data.length !== 0">
 			<div class="mat-elevation-z8">
@@ -17,13 +17,13 @@
 				  <th mat-header-cell *matHeaderCellDef>
 					<mat-checkbox (change)="$event ? masterToggle() : null"
 								  [checked]="selection.hasValue() && isAllSelected()"
-								  [indeterminate]="selection.hasValue() && !isAllSelected()">
+								  [indeterminate]="selection.hasValue() && !isAllSelected()"  class="m-2">
 					</mat-checkbox>
 				  </th>
 				  <td mat-cell *matCellDef="let row">
 					<mat-checkbox (click)="$event.stopPropagation()"
 								  (change)="onSelectToggle(row)"
-								  [checked]="selection.isSelected(row)">
+								  [checked]="selection.isSelected(row)" class="m-2">
 					</mat-checkbox>
 				  </td>
 				</ng-container>
@@ -31,15 +31,15 @@
 			   
 			  
 				<!-- Name Column -->
-				<ng-container matColumnDef="name">
-				  <th mat-header-cell *matHeaderCellDef> Name </th>
-				  <td mat-cell *matCellDef="let element"> {{element.foodName}} </td>
+				<ng-container matColumnDef="name" >
+				  <th mat-header-cell *matHeaderCellDef ><span>Name</span> </th>
+				  <td mat-cell *matCellDef="let element" > {{element.food_name}} </td>
 				</ng-container>
 			  
 				<!-- Weight Column -->
 				<ng-container matColumnDef="description">
-				  <th mat-header-cell *matHeaderCellDef> Description </th>
-				  <td mat-cell *matCellDef="let element"> Calories: {{element.calories}}g | Fat: {{element.fat}}g  | Carbs:{{element.carbohydrate}}g | Protein: {{element.protein}}g </td>
+				  <th mat-header-cell *matHeaderCellDef ><span>Description</span>  </th>
+				  <td mat-cell *matCellDef="let element" > Calories: {{element.calories}}g | Fat: {{element.fat}}g  | Carbs:{{element.carbohydrate}}g | Protein: {{element.protein}}g </td>
 				</ng-container>
 			  
 				<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
